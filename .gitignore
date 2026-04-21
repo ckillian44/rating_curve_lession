@@ -4,9 +4,9 @@ __pycache__/
 *$py.class
 
 # Directories
-./figs/
-./input/
-./output/
+figs/
+input/
+output/
 
 # C extensions
 *.so
