@@ -22,7 +22,15 @@ import matplotlib.pyplot as plt
 
 # ---- Load data ----
 
-print("Loading data...")
+"""
+Discussion: What is a dataframe?
+
+A pandas DataFrame is a table of data in Python, similar to a spreadsheet. It has rows and columns, 
+where each column can hold a different type of information (numbers, text, dates). It's designed to make loading, 
+cleaning, analyzing, and visualizing data easy and fast.
+
+"""
+print("Loading data . . .")
 rh = pd.read_csv('./input/RiverHeights_asof_Apr9_2026.csv') # Exported the River Heights from .xls to .csv for easier handeling in Python.
     # Note: Always make sure data are UTF-8 encoded when loading to avoid encoding issues, especially with special characters.
 
@@ -43,6 +51,72 @@ print("\nFirst few rows of the data:")
 print(rh.head()) # Only shows the first fiew and last columns. Students may struggle here
 
 # Check the data types of each column to ensure they are appropriate for analysis
+"""
+Discussion: What are data types and why are they important?
+
+Each column column of a pandas dataframe is assigned a data type. These data types matter because they determine:
+    what operations are allowed (e.g., math, comparisons)
+    how plots and summaries behave
+    whether data are interpreted correctly (e.g., dates vs text)
+
+This project uses several core Python/pandas data types.
+Here they are, explained in plain language.
+
+1. Strings (object in pandas): A string is just text — letters, numbers, punctuation, anything inside quotes.
+    Examples in this lesson:
+        Dates before conversion (e.g., "4/10/2026")
+        Notes or comments
+        "Y"/"N" values for Monroe_Road_Closed
+        USGS approval status: "Approved", "Provisional"
+        Parameter code "00060" or "00065"
+    Why it matters:
+        Text cannot be used directly in math or plotting numeric trends.
+        That is why we convert strings like "4/10/2026" into real dates, and codes like "00060" into filters.
+
+2. Integers (int64 or Int64): Whole numbers without decimals.
+    Examples in this lesson:
+        Year after conversion
+        Some ID fields (if present)
+    Why it matters:
+        Integers sort cleanly (e.g., by year).
+        They can be grouped, counted, or compared.
+
+3. Floating-point numbers (float64): Numbers with decimals, e.g., 4.23 or -0.15.
+    Examples:
+        RvrHt (river height)
+        Water_Elevation_ft
+        USGS value fields for discharge and gage height
+        Flood_Elevation_ft
+    Why it matters:
+        Most scientific datasets use floats for measurements.
+        Floats allow plotting, fitting the rating curve, performing math, etc.
+
+4. Datetimes (datetime64[ns]): A true Python date/time object with calendar awareness.
+    Examples:
+        Date in the township dataset
+    Why it matters:
+        You can sort by time correctly (“April” won't come before “January”).
+        You can plot time-series.
+
+5. Boolean (bool): A binary value (0/1, True/False) Useful for tagging data, creating filters, or marking conditions.
+    Examples:
+        Monroe_Road_Closed after converting "Y"/"N" → True / False
+    Why it matters:
+        Booleans let you easily select things such as:
+        Pythondf[df["Monroe_Road_Closed"] == True]Show more lines
+
+6. Pandas Categorical (category) (optional but common): A text column stored efficiently with fixed allowed values.
+    Not used explicitly, but a good concept for students.
+    Examples that could be categorical:
+        Approval status (Approved / Provisional)
+        Yes/No columns
+        Location or site codes
+    Why it matters:
+        Saves memory
+        Useful for machine learning or statistics
+        Speeds up comparisons
+
+"""
  # This is important because if the data types are incorrect (e.g., numerical data stored as strings), 
  # it can lead to errors in analysis and visualization.
 print("\nData types of each column:")
